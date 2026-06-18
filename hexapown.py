@@ -25,8 +25,6 @@ class HexaPown:
                 self._print_board()
                 self.player = "O" if self.player == "X" else "X"
 
-        self.player = "O" if self.player == "X" else "X"      
-        print(f"Game Over! '{self.player}' wins!" if self.win else f"Game Over! No available moves for '{self.player}'.")
 
     def _print_board(self):
         for i in self.board:
@@ -73,12 +71,14 @@ class HexaPown:
 
     def _check_normal_win(self):
         if "X" in self.board[2] or "O" in self.board[0]:
+            print(f"Game Over! '{self.player}' wins!")
             return True
         else:
             return False
         
     def _check_no_available_move(self, available_moves):
         if len(available_moves) == 0:
+            print(f"Game Over! No available moves for '{self.player}'.")
             return True
         else:
             return False
