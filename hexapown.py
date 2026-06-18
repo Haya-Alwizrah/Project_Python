@@ -71,6 +71,7 @@ class HexaPown:
 
     def _check_normal_win(self):
         if "X" in self.board[2] or "O" in self.board[0]:
+            self.player = "O" if self.player == "X" else "X"
             print(f"Game Over! '{self.player}' wins!")
             return True
         else:
