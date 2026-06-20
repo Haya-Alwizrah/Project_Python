@@ -1,6 +1,6 @@
 class TicTacToe:
     def __init__(self):
-    # This list represents the XO board
+        # This list represents the Tic tac toe board
         self.board = ["-", "-", "-",
                       "-", "-", "-",
                       "-", "-", "-"]
