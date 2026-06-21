@@ -2,29 +2,31 @@ import random
 
 class HexaPown:
     def __init__(self):
+        self.reset()
+
+    def reset(self):
         self.board = [
             ["X", "X", "X"],
             [" ", " ", " "],
             ["O", "O", "O"]
         ]
-        self.no_move = False
-        self.win = False
+        self.winner = None
         self.player = random.choice(["X", "O"])
 
     def start(self):
         self._print_board()
-        while self.win == False and self.no_move == False:
+        while self.winner == None:
             
             available_moves = self._available_moves()
-            self.win = self._check_normal_win()
-            self.no_move = self._check_no_available_move(available_moves)
+            self.winner = self._check_winner(available_moves)
 
-            if not self.win and not self.no_move:
+            if self.winner != None:
+                print(f"Player '{self.winner}' wins!")
+            else:
                 selected_move = self._select_move(available_moves)
                 self._move(selected_move)
                 self._print_board()
                 self.player = "O" if self.player == "X" else "X"
-
 
     def _print_board(self):
         for i in self.board:
@@ -69,22 +71,15 @@ class HexaPown:
 
         return available_moves
 
-    def _check_normal_win(self) -> bool:
+    def _check_winner(self, available_moves) -> str:
         if "X" in self.board[2]:
-            print(f"Game Over! 'X' wins!")
-            return True
+            return "X"
         elif "O" in self.board[0]:
-            print(f"Game Over! 'O' wins!")
-            return True
+            return "O"
+        elif len(available_moves) == 0:
+            return "O" if self.player == "X"else "X"
         else:
-            return False
-        
-    def _check_no_available_move(self, available_moves) -> bool:
-        if len(available_moves) == 0:
-            print(f"Game Over! No available moves for '{self.player}'.")
-            return True
-        else:
-            return False
+            return None
         
     def _select_move(self, available_moves)-> tuple[tuple]:
         print(f"'{self.player}' choose the number of the movement you want:")
