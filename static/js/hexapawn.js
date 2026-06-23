@@ -11,7 +11,7 @@ async function loadGameState() {
     selectedPiece = null;
     highlightedMoves = [];
     
-    let response = await fetch('/hexapown/state');
+    let response = await fetch('/hexapawn/state');
     let data = await response.json();
     
     currentBoard = data.board;
@@ -26,7 +26,7 @@ async function resetGame() {
     selectedPiece = null;
     highlightedMoves = [];
     
-    let response = await fetch('/hexapown/reset', { method: 'POST' });
+    let response = await fetch('/hexapawn/reset', { method: 'POST' });
     let data = await response.json();
     
     currentBoard = data.board;
@@ -42,7 +42,7 @@ function renderBoard() {
     boardDiv.innerHTML = ''; 
 
     if (currentWinner) {
-        document.getElementById('status-text').innerText = `🎉 Winner is Player: ${currentWinner}! 🎉`;
+        document.getElementById('status-text').innerText = `Winner is Player: ${currentWinner}!`;
     } else {
         document.getElementById('status-text').innerText = `Turn: Player ${currentPlayer}`;
     }
@@ -89,7 +89,7 @@ async function handleCellClick(row, col) {
 
     const isDestination = highlightedMoves.some(m => parseInt(m[0]) === parseInt(row) && parseInt(m[1]) === parseInt(col));
     if (isDestination && selectedPiece) {
-        let response = await fetch('/hexapown/move', {
+        let response = await fetch('/hexapawn/move', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -116,7 +116,7 @@ async function handleCellClick(row, col) {
     if (isMovable) {
         selectedPiece = { row, col };
         
-        let response = await fetch('/hexapown/available_moves', {
+        let response = await fetch('/hexapawn/available_moves', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ row, col })

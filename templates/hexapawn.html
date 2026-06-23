@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Hexapown Game{% endblock %}
+{% block title %}HexaPawn Game{% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/hexapown.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hexapawn.css') }}">
 {% endblock %}
 
 {% block content %}
-    <h1>Hexapown Game</h1>
+    <h1>HexaPawn Game</h1>
     <div class="status" id="status-text">Loading game...</div>
     <div class="board" id="game-board"></div>
     <button class="btn-restart" onclick="resetGame()">Restart Game</button>
@@ -15,5 +15,5 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/hexapown.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/hexapawn.js') }}"></script>
 {% endblock %}

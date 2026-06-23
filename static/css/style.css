@@ -35,7 +35,7 @@ p {
     gap: 25px;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 900px;
+    max-width: 1000px;
 }
 
 .btn-category {
@@ -62,7 +62,7 @@ p {
     border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 30px;
-    width: 240px;
+    width: 270px;
     backdrop-filter: blur(10px);
     transition: all 0.3s ease;
     cursor: pointer;

@@ -23,16 +23,16 @@ def home():
 def singleplayer():
     games = [
         {
-            'name': 'HangmanGame',
-            'url': '/HangmanGame'
+            'name': 'Hangman',
+            'url': '/Hangman'
         },
         {
             'name': 'Wordle',
             'url': '/Wordle'
         },
         {
-            'name': 'GuessingNumberGame',
-            'url': '/GuessingNumberGame'
+            'name': 'Guessing Number',
+            'url': '/Guessing-Number'
         }
     ]
     return render_template('category.html', title='Single Player Games', games=games)
@@ -41,18 +41,18 @@ def singleplayer():
 def multiplayer():
     games = [
         {
-            'name': 'HexaPown',
-            'url': '/hexapown'
+            'name': 'Hexa Pawn',
+            'url': '/hexapawn'
         },
         {
-            'name': 'TicTacToe',
+            'name': 'Tic Tac Toe',
             'url': '/TicTacToe'
         }
     ]
     return render_template('category.html', title='Two Player Games', games=games)
 
 # ------------------------------------------[ HangmanGame ]-----------------------------------------------------------
-@app.route('/HangmanGame')
+@app.route('/Hangman')
 def hangman():
     return render_template('hangman.html')
 
@@ -62,22 +62,22 @@ def wordle():
     return render_template('wordle.html')
 
 # ------------------------------------------[ GuessingNumberGame ]-----------------------------------------------------------
-@app.route('/GuessingNumberGame')
+@app.route('/Guessing-Number')
 def guessing_number():
     return render_template('guessing_number.html')
 
 # ------------------------------------------[ HexaPown ]-----------------------------------------------------------
-@app.route('/hexapown')
-def hexapown():
+@app.route('/hexapawn')
+def hexapawn():
     hp.reset()
-    return render_template('hexapown.html')
+    return render_template('hexapawn.html')
 
-@app.route('/hexapown/state', methods=['GET'])
-def hexapown_state():
+@app.route('/hexapawn/state', methods=['GET'])
+def hexapawn_state():
     return jsonify(hp.get_state())
 
-@app.route('/hexapown/available_moves', methods=['POST'])
-def hexapown_available_moves():
+@app.route('/hexapawn/available_moves', methods=['POST'])
+def hexapawn_available_moves():
     data = request.json
     row, col = int(data.get('row')), int(data.get('col'))
     
@@ -86,8 +86,8 @@ def hexapown_available_moves():
     
     return jsonify({'moves': piece_moves})
 
-@app.route('/hexapown/move', methods=['POST'])
-def hexapown_move():
+@app.route('/hexapawn/move', methods=['POST'])
+def hexapawn_move():
     data = request.json
     from_pos = (int(data.get('from_row')), int(data.get('from_col')))
     to_pos = (int(data.get('to_row')), int(data.get('to_col')))
@@ -98,8 +98,8 @@ def hexapown_move():
     state['success'] = success
     return jsonify(state)
 
-@app.route('/hexapown/reset', methods=['POST'])
-def hexapown_reset():
+@app.route('/hexapawn/reset', methods=['POST'])
+def hexapawn_reset():
     hp.reset()
     return jsonify(hp.get_state())
 
