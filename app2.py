@@ -81,7 +81,7 @@ def hexapown_available_moves():
     data = request.json
     row, col = int(data.get('row')), int(data.get('col'))
     
-    available_moves = hp._available_moves()
+    available_moves = hp.available_moves()
     piece_moves = available_moves.get((row, col), [])
     
     return jsonify({'moves': piece_moves})
@@ -92,7 +92,7 @@ def hexapown_move():
     from_pos = (int(data.get('from_row')), int(data.get('from_col')))
     to_pos = (int(data.get('to_row')), int(data.get('to_col')))
     
-    success = hp._move(from_pos, to_pos)
+    success = hp.move(from_pos, to_pos)
     
     state = hp.get_state()
     state['success'] = success

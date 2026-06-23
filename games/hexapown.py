@@ -27,7 +27,7 @@ class HexaPown:
     def _inside_board(self, i:int, j:int)-> bool:
         return 0 <= i < 3 and 0 <= j < 3
 
-    def _available_moves(self)-> dict[list[tuple]]:
+    def available_moves(self)-> dict[list[tuple]]:
         x_position, o_position = self._players_position()
         if self.player == "X":
             move_dirction = 1
@@ -57,7 +57,7 @@ class HexaPown:
 
         return available_moves
 
-    def _check_winner(self, available_moves) -> str:
+    def _check_winner(self, available_moves: dict[tuple, list[tuple]]) -> str:
         if "X" in self.board[2]:
             return "X"
         elif "O" in self.board[0]:
@@ -67,8 +67,8 @@ class HexaPown:
         else:
             return None
 
-    def _move(self, from_pos, to_pos):
-        available_moves = self._available_moves()
+    def move(self, from_pos: tuple[int, int], to_pos: tuple[int, int]) -> bool:
+        available_moves = self.available_moves()
 
         if from_pos not in available_moves or to_pos not in available_moves[from_pos]:
             return False
@@ -83,8 +83,8 @@ class HexaPown:
 
         return True
     
-    def get_state(self):
-        available_moves = self._available_moves()
+    def get_state(self)-> dict:
+        available_moves = self.available_moves()
         winner = self._check_winner(available_moves)
         movable_pieces = [list(pos) for pos in available_moves.keys()]
         
@@ -101,7 +101,7 @@ class HexaPown:
         self._print_board()
         while self.winner == None:
             
-            available_moves = self._available_moves()
+            available_moves = self.available_moves()
             self.winner = self._check_winner(available_moves)
 
             if self.winner != None:
