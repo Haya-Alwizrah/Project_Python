@@ -1,1 +1,43 @@
 {% extends "base.html" %}
+
+{% block title %}Fruit Hangman{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Hangman Game</h1>
+    <h3> Game Rules:</h3>
+    <ul>
+        <li>You have to guess the hidden fruit word letter by letter.</li>
+        <li>You have a limited number of chances; each wrong guess builds the hangman.</li>
+        <li>You can only type one letter at a time, and no numbers or symbols are allowed.</li>
+        <li>A special hint will appear automatically to help you before your very last chance!</li>
+    </ul>
+    <hr>
+
+    <p>Guess the word! HINT: word is a fruit.</p>
+        <h2>{{ display_word }}</h2>
+
+    <form action="/guess" method="post">
+        <label>Enter a letter to guess: </label>
+        <input type="text" name="letter" maxlength="1" autofocus required>
+        <button type="submit">Submit</button>
+    </form>
+    {% if msg %}
+        <p><strong>Warning:</strong> {{ msg }}</p>
+    {% endif %}
+
+    {% if show_hint %}
+        <p><strong>Hint:</strong> {{ hint }}</p>
+    {% endif %}
+
+    {% if game_over %}
+        <h2> Congratulations! You won!</h2>
+        <p><a href="/">Play Again</a></p>
+    {% elif is_lost %}
+        <h2> You lost! The word was: {{ secret_word }}</h2>
+        <p><a href="/">Play Again</a></p>
+    {% endif %}
+    <br><br>
+    <img src="/static/{{ stage_visual }}" alt="Hangman Stage" width="250">
+</div>
+{% endblock %}

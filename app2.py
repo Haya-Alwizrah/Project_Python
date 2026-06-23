@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for, session
 from games.hangman import HangmanGame
 from games.wordle import Wordle
 #from guessing_number import GuessingNumberGame
@@ -54,7 +54,66 @@ def multiplayer():
 # ------------------------------------------[ HangmanGame ]-----------------------------------------------------------
 @app.route('/Hangman')
 def hangman():
-    return render_template('hangman.html')
+    import random
+    word, hint = random.choice(list(hg.wordlist.items()))
+    session['word'] = word
+    session['hint'] = hint
+    session['letterGuessed'] = ''
+    session['wrong_guesses'] = 0
+    session['msg'] = ''
+    return redirect(url_for('game_loop'))
+
+@app.route('/game')
+def game_loop():
+    word = session.get('word')
+    letterGuessed = session.get('letterGuessed', '')
+    wrong_guesses = session.get('wrong_guesses', 0)
+    max_chances = len(hg.stages) - 1
+
+    display_word_str = " ".join([char if char in letterGuessed else "_" for char in word])
+    stage_visual = stage_visual = f"stage{wrong_guesses}.png"
+
+
+    from collections import Counter
+    game_over = Counter(letterGuessed) == Counter(word)
+    is_lost = wrong_guesses == max_chances
+    show_hint = wrong_guesses == (max_chances - 1)
+
+    return render_template('hangman.html',
+                           display_word=display_word_str,
+                           stage_visual=stage_visual,
+                           msg=session.get('msg', ''),
+                           show_hint=show_hint,
+                           hint=session.get('hint'),
+                           game_over=game_over,
+                           is_lost=is_lost,
+                           secret_word=word)
+
+@app.route('/guess', methods=['POST'])
+def guess():
+    guess_letter = request.form.get('letter', '').lower()
+    word = session.get('word')
+    letterGuessed = session.get('letterGuessed', '')
+    wrong_guesses = session.get('wrong_guesses', 0)
+
+    session['msg'] = ''  # تصفير رسائل الخطأ السابقة
+
+    # تطبيق دالة validate_input الخاصة بكِ بدقة
+    if not guess_letter.isalpha():
+        session['msg'] = 'Enter only a letter!'
+    elif len(guess_letter) > 1:
+        session['msg'] = 'Enter only a single letter!'
+    elif guess_letter in letterGuessed:
+
+        session['msg'] = 'You already guessed that letter!'
+    else:
+        # تطبيق منطق التخمين الصحيح والخاطئ من كودك الأصلي
+        if guess_letter in word:
+            session['letterGuessed'] += guess_letter * word.count(guess_letter)
+        else:
+            session['wrong_guesses'] += 1
+
+    return redirect(url_for('game_loop'))
 
 # ------------------------------------------[ Wordle ]-----------------------------------------------------------
 @app.route('/Wordle')
