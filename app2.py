@@ -12,6 +12,7 @@ hp = HexaPown()
 ttt = TicTacToe()
 
 app = Flask(__name__)
+app.secret_key = "my_secret_key_123"
 
 # ------------------------------------------[ home ]-----------------------------------------------------------
 @app.route('/')
@@ -71,7 +72,7 @@ def game_loop():
     max_chances = len(hg.stages) - 1
 
     display_word_str = " ".join([char if char in letterGuessed else "_" for char in word])
-    stage_visual = stage_visual = f"stage{wrong_guesses}.png"
+    stage_visual = stage_visual = f"img/stage{wrong_guesses}.png"
 
 
     from collections import Counter

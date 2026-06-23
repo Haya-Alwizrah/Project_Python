@@ -32,12 +32,13 @@
 
     {% if game_over %}
         <h2> Congratulations! You won!</h2>
-        <p><a href="/">Play Again</a></p>
+        <p><a href="/Hangman">Play Again</a></p>
     {% elif is_lost %}
         <h2> You lost! The word was: {{ secret_word }}</h2>
-        <p><a href="/">Play Again</a></p>
+        <p><a href="/Hangman">Play Again</a></p>
     {% endif %}
     <br><br>
     <img src="/static/{{ stage_visual }}" alt="Hangman Stage" width="250">
+    <a href="/singleplayer" class="btn-back">← Back to Single Player Games</a>
 </div>
 {% endblock %}
