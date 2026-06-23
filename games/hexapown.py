@@ -13,28 +13,6 @@ class HexaPown:
         self.winner = None
         self.player = random.choice(["X", "O"])
 
-    def start(self):
-        self._print_board()
-        while self.winner == None:
-            
-            available_moves = self._available_moves()
-            self.winner = self._check_winner(available_moves)
-
-            if self.winner != None:
-                print(f"Player '{self.winner}' wins!")
-            else:
-                print(available_moves)
-                from_row = int(input("from row: "))
-                from_col = int(input("from col: "))
-                to_row = int(input("to row: "))
-                to_col = int(input("to col: "))
-                self._move((from_row, from_col),(to_row, to_col))
-                self._print_board()
-
-    def _print_board(self):
-        for i in self.board:
-            print(i)
-
     def _players_position(self) -> list[tuple]:
         x_position = []
         o_position = []
@@ -116,6 +94,30 @@ class HexaPown:
             'winner': winner,
             'movable_pieces': movable_pieces
         }
+    
+
+# For testing in console -------------------------------------------------------------------
+    def start(self):
+        self._print_board()
+        while self.winner == None:
+            
+            available_moves = self._available_moves()
+            self.winner = self._check_winner(available_moves)
+
+            if self.winner != None:
+                print(f"Player '{self.winner}' wins!")
+            else:
+                print(available_moves)
+                from_row = int(input("from row: "))
+                from_col = int(input("from col: "))
+                to_row = int(input("to row: "))
+                to_col = int(input("to col: "))
+                self._move((from_row, from_col),(to_row, to_col))
+                self._print_board()
+
+    def _print_board(self):
+        for i in self.board:
+            print(i)
 
 #x = HexaPown()
 #x.start()
