@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'VT323', monospace;
 }
 
 body {
@@ -22,6 +24,7 @@ h1 {
     margin-bottom: 10px;
     color: #00d2d3;
     text-shadow: 0 4px 10px rgba(0, 210, 211, 0.3);
+    font-family: 'VT323', monospace;
 }
 
 p {

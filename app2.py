@@ -58,29 +58,48 @@ def multiplayer():
     return render_template('category.html', title='Two Player Games', games=games)
 
 # ------------------------------------------[ HangmanGame ]-----------------------------------------------------------
+# Define the web route/URL for initializing or restarting the game
 @app.route('/Hangman')
 def hangman():
+    # Select random word and its color
     word, hint = random.choice(list(hg.wordlist.items()))
+
+    # Store the variables in the encrypted browser session cookie
     session['hangman_word'] = word
     session['hangman_hint'] = hint
+
+    # Initialize/Reset the player's guessed letters and wrong guesses
     session['hangman_letterGuessed'] = ''
     session['hangman_wrong_guesses'] = 0
-    session['hangman_msg'] = ''
+
+    # Clear any existing validation error messages from previous game states
+    session['hangman_msg'] = '' 
+
     return redirect(url_for('game_loop'))
+
 
 @app.route('/game')
 def game_loop():
+    
+    # Retrieve from the active session storage
     word = session.get('hangman_word')
     letterGuessed = session.get('hangman_letterGuessed', '')
     wrong_guesses = session.get('hangman_wrong_guesses', 0)
+    
     max_chances = len(hg.stages) - 1
 
+    # Call the class method to format the word into characters and underscores
     display_word_str = hg.display_word(word, letterGuessed)
 
     stage_visual = f"img/stage{wrong_guesses}.png"
 
+    # Call your OOP class method to check if the win condition is met
     game_over = hg.check_win(letterGuessed, word)
+
+    # Determine if the user has completely run out of guessing chances
     is_lost = wrong_guesses == max_chances
+
+    # Condition to show the color hint exactly one turn before potential loss
     show_hint = wrong_guesses == (max_chances - 1)
 
     return render_template('hangman.html',
@@ -95,12 +114,15 @@ def game_loop():
 
 @app.route('/guess', methods=['POST'])
 def guess():
+    
+    # Extract the character from the HTML input field
     guess_letter = request.form.get('letter', '').lower()
     word = session.get('hangman_word')
     letterGuessed = session.get('hangman_letterGuessed', '')
 
     session['hangman_msg'] = ''
 
+    # Call the class method to validate if the inputted letter is legal
     validation_result = hg.validate_input(guess_letter, letterGuessed)
 
     if validation_result is True:
