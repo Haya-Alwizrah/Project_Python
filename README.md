@@ -64,7 +64,7 @@ GameHub/
 ## developers team:
 - Haya Alwizrah
 - Raghad Alharbi
-- Dalia Alkharshad
+- Dalia Alkharshad.
 - Summaya Hassan
 
 ---
