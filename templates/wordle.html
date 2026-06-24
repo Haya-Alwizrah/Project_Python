@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Game Hub{% endblock %}
+{% block title %}Wordle Game{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wordle.css') }}">
+{% endblock %}
 
 {% block content %}
+<div class="container">
 <div class="container">
         <h1>Welcome to the Wordle Game</h1>
         <p>Guess the hidden 5-letter word. After each guess, you will see whether each letter is correct or in the right position.</p>

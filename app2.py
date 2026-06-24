@@ -117,9 +117,60 @@ def guess():
     return redirect(url_for('game_loop'))
 
 # ------------------------------------------[ Wordle ]-----------------------------------------------------------
-@app.route('/Wordle')
+@app.route('/Wordle', methods=['GET', 'POST'])
 def wordle():
-    return render_template('wordle.html')
+    if 'word' not in session:
+        game_logic = wordle() # create an instance of the wordle class
+        session['word'] = game_logic.word #
+        session['attempts'] = 6
+        session['history'] = [] #used to store the history of the player's previous guesses and color code the results
+        
+    message = ""
+    
+    if request.method == 'POST':
+        '''
+        This method handles the restart and captures the player's
+        '''
+        if request.form.get('restart'): #this handles the play again button
+            session.pop('word', None)
+            session.pop('attempts', None)
+            session.pop('history', None)
+            return redirect(url_for('wordle'))
+        
+        guess = request.form.get('guess', '').lower() #checking the formatting of the input 
+        if len(guess) == 5 and guess.isalpha():#check if the input is 5 letter long and all alphabets
+            target = session['word']
+            letters = list(target)
+            result = []
+            for i, letter in enumerate(guess):
+                if letter == target[i]:
+                    result.append({letter: letter.upper(), 'status': 'correct'})
+                    letters[i] = None
+                else:
+                    result.append({'letter': letter.upper(), 'status': 'pending'})
+            for i, entry in enumerate(result):
+                if entry['status'] != 'pending':
+                    continue
+                letter = guess[i]
+                if letter in letters:
+                    entry['status'] = 'present'
+                    letters[letters.index(letter)] = None
+                else:
+                    entry['status'] = 'absent'
+            session['attempts'] -=1
+            session['history'].append(result)
+            
+            
+            if guess == target:
+                message = "You Won!"
+            elif session['attempts'] <= 0:
+                message = f"Game Over! The Word Was {target}"
+        else:
+                message = "Invalid input! Use 5 Letters"
+    
+    return render_template('wordle.html', attempts= session['attempts'], history = session['history'], message = message)
+
+
 
 # ------------------------------------------[ GuessingNumberGame ]-----------------------------------------------------------
 @app.route('/Guessing-Number')
