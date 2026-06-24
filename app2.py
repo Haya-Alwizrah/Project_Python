@@ -121,7 +121,7 @@ def guess():
 @app.route('/Wordle', methods=['GET', 'POST'])
 def wordle():
     if 'wordle_word' not in session:
-        session['wordle_word'] = wo.word
+        session['wordle_word'] = wo._word_of_the_day()
         session['wordle_attempts'] = 6
         session['wordle_history'] = [] #used to store the history of the player's previous guesses and color code the results
         
@@ -144,7 +144,7 @@ def wordle():
             result = []
             for i, letter in enumerate(guess):
                 if letter == target[i]:
-                    result.append({letter: letter.upper(), 'status': 'correct'})
+                    result.append({'letter': letter.upper(), 'status': 'correct'})
                     letters[i] = None
                 else:
                     result.append({'letter': letter.upper(), 'status': 'pending'})
@@ -157,7 +157,7 @@ def wordle():
                     letters[letters.index(letter)] = None
                 else:
                     entry['status'] = 'absent'
-            session['wordle_attempts'] -=1
+            session['wordle_attempts'] -= 1
             session['wordle_history'].append(result)
             
             
