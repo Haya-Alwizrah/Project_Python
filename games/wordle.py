@@ -103,3 +103,19 @@ class Wordle:
         if self.Attempts == 0:
             print(f"Game Over, You Lost")
             print(f"The Word Of Today Is {self.word}")
+            
+    '''
+    Reflection:
+    What was the most challenging part?
+    - Differentiating between the position of two same letters in the word like (attic) 
+    
+    Which concept did you enjoy the most?
+    - Creating the game and making it interactive with the user
+    - customizing the output to make it more user friendly and easy to understand
+    
+    What would you improve if you had more time?
+    - Checking if the word exist in the dictionary or not
+    - Game in Arabic
+    - Specific theme that the people can choose, like guessing programming concepts, or medical terms
+    '''
+    
