@@ -30,3 +30,29 @@
     color: #0984e3;
     font-weight: bold;
 }
+
+.win-announcement {
+    background-color: #42d2a5 !important;
+    color: white !important;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.4);
+    margin: 20px 0;
+}
+.win-announcement p{
+    color: white !important;
+}
+
+.lose-announcement {
+    background-color: #e74c3c !important;
+    color: white !important;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+    margin: 20px 0;
+}
+.lose-announcement p{
+    color: white !important;
+}
