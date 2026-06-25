@@ -214,10 +214,10 @@ c._start()
 
 #ٍReflections
 # 1. What was the most challenging part?
-Integrating the Python game logic with Flask and rendering it dynamically onto the web interface.
+#Integrating the Python game logic with Flask and rendering it dynamically onto the web interface.
 
 # 2. Which concept did you enjoy the most?
-Designing and writing the core game logic and methods within the Object-Oriented structure.
+#Designing and writing the core game logic and methods within the Object-Oriented structure.
 
 # 3. What would you improve if you had more time?
-Expanding the word vocabulary list and integrating interactive sound effects to enhance the user experience.
+#Expanding the word vocabulary list and integrating interactive sound effects to enhance the user experience.
