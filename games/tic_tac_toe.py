@@ -105,5 +105,5 @@ class TicTacToe:
 Reflection:
 - The most challenging part was checking all winning conditions correctly.
 - The concept I enjoyed the most was using functions and organizing the code inside a class.
-- If I had more time, I would allow players to play again without restarting the program, and making the game interface more user-friendly.
+- If I had more time, I would add a score system to keep track of each player's wins.
 """
