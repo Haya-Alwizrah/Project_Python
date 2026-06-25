@@ -18,7 +18,7 @@ class TicTacToe:
         self.player_message = lambda player: f"Player {player}'s turn"
 
     # This method takes the player's move from the webpage
-    def make_move(self, position):
+    def make_move(self, position:int):
         if position < 0 or position > 8:
             return
 
@@ -31,7 +31,7 @@ class TicTacToe:
                 self.switch_player()
 
     # This method checks the horizontal lines
-    def check_horizontal(self):
+    def check_horizontal(self) -> bool:
         if self.board[0] == self.board[1] == self.board[2] and self.board[0] != "-":
             self.winner = self.board[0]
             return True
@@ -44,7 +44,7 @@ class TicTacToe:
         return False
 
     # This method checks the vertical lines
-    def check_vertical(self):
+    def check_vertical(self) -> bool:
         if self.board[0] == self.board[3] == self.board[6] and self.board[0] != "-":
             self.winner = self.board[0]
             return True
@@ -57,7 +57,7 @@ class TicTacToe:
         return False
 
     # This method checks the diagonal lines
-    def check_diagonal(self):
+    def check_diagonal(self) -> bool:
         if self.board[0] == self.board[4] == self.board[8] and self.board[0] != "-":
             self.winner = self.board[0]
             return True
@@ -67,12 +67,12 @@ class TicTacToe:
         return False
 
     # This method checks if there is a tie
-    def check_tie(self):
+    def check_tie(self) -> bool:
         if "-" not in self.board and self.winner is None:
             self.game_running = False
 
     # This method checks if there is a winner
-    def check_win(self):
+    def check_win(self) -> bool:
         if self.check_diagonal() or self.check_horizontal() or self.check_vertical():
             self.game_running = False
 
@@ -84,7 +84,7 @@ class TicTacToe:
             self.current_player = "X"
 
     # This method returns the game status message
-    def get_status(self):
+    def get_status(self) -> str:
         if self.winner:
             return f"The winner is {self.winner}"
         elif not self.game_running:

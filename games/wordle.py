@@ -12,7 +12,7 @@ class Wordle:
         self.guess = ""
         self.word = self._word_of_the_day().lower() # ensure each word is all in lower case
       
-    def _word_of_the_day(self):
+    def _word_of_the_day(self)->str:
         '''
         returns a word chosen randomly from the words list.
 
@@ -31,7 +31,7 @@ class Wordle:
         ]
         return random.choice(words_list).lower()  #brings the word from the word list randomly
 
-    def  _letter_in_word(self, letter, word):
+    def  _letter_in_word(self, letter:str, word:str) -> bool:
         '''
         checks if a letter in the word.
         '''
@@ -40,7 +40,7 @@ class Wordle:
         else:
             return False
 
-    def  _right_position(self,letter, word, guess):
+    def  _right_position(self,letter:str, word:str, guess:str) -> bool:
         '''
         checks if the letter exist in the right position.
 
@@ -48,7 +48,7 @@ class Wordle:
         if self._letter_in_word(letter, word)== True and guess.find(letter) == word.find(letter):
               return True
 
-    def  _wrong_position(self,letter, word, guess):
+    def  _wrong_position(self,letter:str, word:str, guess:str) -> bool:
         '''
         checks if the letter in the word but in the wrong position.
 
@@ -56,7 +56,7 @@ class Wordle:
         if self._letter_in_word(letter, word)== True and guess.find(letter) != word.find(letter):
               return True
         
-    def _bring_index(self, guess, letter, position):
+    def _bring_index(self, guess:str, letter:str, position):
         '''
         return the position of each letter found in the user answer
 

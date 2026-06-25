@@ -165,7 +165,7 @@ class HangmanGame:
         except KeyboardInterrupt:
             print('\nGame interrupted. Bye!')
 
-    def display_word(self, word, letterGuessed):
+    def display_word(self, word:str, letterGuessed:str) -> str:
         """
         Displays the word with underscores for unguessed letters.
         """
@@ -177,13 +177,13 @@ class HangmanGame:
                 result.append('_')
         return " ".join(result)
 
-    def check_win(self, letterGuessed, word):
+    def check_win(self, letterGuessed:str, word:str) -> bool:
         """
         Checks if player has guessed the full word correctly.
         """
         return Counter(letterGuessed) == Counter(word)
 
-    def validate_input(self, guess, letterGuessed):
+    def validate_input(self, guess:str, letterGuessed:str):
         """
         Ensures input is a single valid letter and not repeated.
         """
